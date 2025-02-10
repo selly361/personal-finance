@@ -44,7 +44,7 @@ export const updateSession = async (request: NextRequest) => {
 
   // protected routes
   if (PRIVATE_ROUTES.includes(request.nextUrl.pathname) && user.error) {
-    return NextResponse.redirect(new URL('/sign-in', request.url))
+    return NextResponse.redirect(new URL('/login', request.url))
   }
 
   if (!PRIVATE_ROUTES.includes(request.nextUrl.pathname) && !user.error) {
