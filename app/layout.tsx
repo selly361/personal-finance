@@ -3,6 +3,7 @@ import './globals.css'
 import { Metadata } from 'next'
 import { PropsWithChildren } from 'react'
 import { Public_Sans } from 'next/font/google'
+import { cn } from '@/lib/utils'
 
 export const metadata: Metadata = {
   title: {
@@ -18,7 +19,9 @@ const public_sans = Public_Sans({ subsets: ['latin'] })
 export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <body className={public_sans.className}>{children}</body>
+      <body className={cn(public_sans.className, 'overflow-x-hidden')}>
+        {children}
+      </body>
     </html>
   )
 }
