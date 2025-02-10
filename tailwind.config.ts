@@ -36,7 +36,6 @@ const config = {
         yellow: '#F2CDAC',
         cyan: '#82C9D7',
         navy: '#626070',
-        red: '#C94736',
         purple: {
           '300': '#AF81BA',
           '500': '#826CB0',
@@ -89,11 +88,6 @@ const config = {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
-      },
-      borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
       },
       spacing: {
         '50': '0.25rem',
