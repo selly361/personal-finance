@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button'
 import { Metadata } from 'next/types'
-import { signOutAction } from '@/actions'
+import { logoutAction } from '@/actions'
 
 export const metadata = {
-  title: 'Dashboard',
+  title: 'Overview',
   description:
     'Get an overview of your finances, track spending, and manage budgets all in one place.',
 } as Metadata
@@ -14,7 +14,7 @@ async function Page() {
       <h1>Home</h1>
 
       <form>
-        <Button formAction={signOutAction}>Sign Out</Button>
+        <Button formAction={logoutAction}>Sign Out</Button>
       </form>
     </main>
   )
