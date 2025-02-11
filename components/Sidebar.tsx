@@ -47,7 +47,7 @@ export default function Sidebar() {
             <Link className='hover:bg-gray-800' key={name} href={href}>
               <motion.li
                 className={cn(
-                  'flex items-center space-x-4 p-2 rounded-r-lg cursor-pointer pl-8 w-[90%] h-14 max-h-14',
+                  'flex items-center space-x-4 p-2 rounded-r-lg cursor-pointer pl-8 w-[90%] h-14 max-h-14 border-l-4 border-transparent',
                   pathname === href ? 'active' : ''
                 )}
                 initial={false}
