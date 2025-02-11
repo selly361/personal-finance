@@ -1,9 +1,10 @@
 import { PropsWithChildren } from 'react'
+import { Sidebar } from '@/components'
 
 export default async function Layout({ children }: PropsWithChildren) {
   return (
-    <div className='max-w-7xl flex flex-col gap-12 items-start'>
-      <header>Sidebar</header>
+    <div className='w-screen flex gap-12 items-start'>
+      <Sidebar />
       {children}
     </div>
   )
