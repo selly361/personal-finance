@@ -43,7 +43,7 @@
 
 @layer components {
   .form {
-    @apply space-y-6 mb-8
+    @apply space-y-6 mb-8;
   }
 
   input.input {
@@ -66,11 +66,11 @@
     @apply text-red-500 text-sm;
   }
 
-  .active {
-    @apply border-l-4 border-green bg-white text-black
+  li.active {
+    @apply border-green bg-white text-black;
   }
 
-  .active path {
-    @apply fill-green
+  li.active path {
+    @apply fill-green;
   }
 }
