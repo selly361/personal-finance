@@ -65,4 +65,12 @@
   .error-text {
     @apply text-red-500 text-sm;
   }
+
+  .active {
+    @apply border-l-4 border-green bg-white text-black
+  }
+
+  .active path {
+    @apply fill-green
+  }
 }
