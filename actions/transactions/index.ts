@@ -1,0 +1,72 @@
+'use server'
+
+import { Transaction } from '@/types'
+import { createServer } from '@/lib/supabase'
+import { revalidatePath } from 'next/cache'
+import { transactionValidation } from '@/lib/validations'
+
+export const getTransactions = async () => {
+  const supabase = await createServer()
+
+  const { data, error } = await supabase.from('transactions').select('*')
+
+  if (error) throw error
+
+  return data
+}
+
+export const createTransaction = async (transactionData: Transaction) => {
+  const result = transactionValidation.safeParse(transactionData)
+
+  if (!result.success) return { error: result.error.format() }
+
+  const supabase = await createServer()
+
+  const { data, error } = await supabase
+    .from('transactions')
+    .insert([transactionData])
+    .select()
+    .single()
+
+  if (error) return { error: error.message }
+
+  revalidatePath('/')
+  revalidatePath('/transactions')
+  return { data }
+}
+
+export const updateTransaction = async (
+  transaction_id: string,
+  transactionData: Transaction
+) => {
+  const result = transactionValidation.safeParse(transactionData)
+
+  if (!result.success) return { error: result.error.format() }
+
+  const supabase = await createServer()
+
+  const { data, error } = await supabase
+    .from('transactions')
+    .update(transactionData)
+    .eq('id', transaction_id)
+    .select()
+    .single()
+
+  if (error) return { error: error.message }
+
+  revalidatePath('/')
+  revalidatePath('/transactions')
+  return { data }
+}
+
+export const deleteTransaction = async (transaction_id: string) => {
+  const supabase = await createServer()
+
+  const { error } = await supabase.from('transactions').delete().eq('id', transaction_id)
+
+  if (error) return { error: error.message }
+
+  revalidatePath('/')
+  revalidatePath('/transactions')
+  return { success: true }
+}
