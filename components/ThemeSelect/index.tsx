@@ -34,8 +34,8 @@ export default function ThemeSelect({ type, value, onChange }: Props) {
   }, [type])
 
   return (
-    <Select>
-      <SelectTrigger className='w-96'>
+    <Select value={value} onValueChange={onChange}>
+      <SelectTrigger className='w-full shadow-md'>
         <SelectValue placeholder='Select theme' />
       </SelectTrigger>
       <SelectContent>
@@ -55,7 +55,7 @@ export default function ThemeSelect({ type, value, onChange }: Props) {
                 )}
               </div>
             </SelectItem>
-            {index < themes.length - 1 && <SelectSeparator />}
+            <SelectSeparator />
           </div>
         ))}
       </SelectContent>
