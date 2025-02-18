@@ -1,6 +1,7 @@
 'use server'
 
 import { createServer } from '@/lib/supabase'
+import { Category } from '@/types'
 
 export const getCategories = async () => {
   const supabase = await createServer()
@@ -9,7 +10,11 @@ export const getCategories = async () => {
 
   if (error) throw error
 
-  return data
+  const categories: Category[] = data.map((category) => ({
+    ...category,
+    isUsed: false,
+  }))
+  return categories
 }
 
 export const getCategoriesWithBudgetUsage = async () => {
@@ -18,5 +23,9 @@ export const getCategoriesWithBudgetUsage = async () => {
 
   if (error) throw error
 
-  return data.map((theme) => ({ ...theme, isUsed: theme.isused }))
+  const categories: Category[] = data.map((category) => ({
+    ...category,
+    isUsed: category.isused,
+  }))
+  return categories
 }
