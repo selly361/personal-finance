@@ -131,7 +131,7 @@ export type Database = {
           avatar: string
           category_id: string
           created_at: string | null
-          date: Date
+          date: string
           id: string
           recipient_sender_name: string
           recurring: boolean | null
@@ -142,7 +142,7 @@ export type Database = {
           avatar: string
           category_id: string
           created_at?: string | null
-          date: Date
+          date: string
           id?: string
           recipient_sender_name: string
           recurring?: boolean | null
@@ -153,7 +153,7 @@ export type Database = {
           avatar?: string
           category_id?: string
           created_at?: string | null
-          date?: Date
+          date?: string
           id?: string
           recipient_sender_name?: string
           recurring?: boolean | null
@@ -174,7 +174,24 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_themes_with_budget_usage: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          name: string
+          color_code: string
+          isused: boolean
+        }[]
+      }
+      get_themes_with_pot_usage: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          name: string
+          color_code: string
+          isused: boolean
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

@@ -20,6 +20,7 @@ export type Theme = {
   id: string
   name: string
   color_code: string
+  isUsed: boolean
 }
 
 /* ------------------- Category Type ------------------- */
@@ -27,4 +28,5 @@ export type Theme = {
 export type Category = {
   id: string
   name: string
+  isUsed: boolean
 }
