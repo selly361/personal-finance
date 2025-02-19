@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import BudgetForm from './BudgetForm'
 import { ModalDialog } from '@/components'
-import NewBudgetForm from './NewBudgetForm'
+import { useState } from 'react'
 
 function NewBudgetModal() {
   const [isOpen, setIsOpen] = useState(false)
@@ -16,7 +16,7 @@ function NewBudgetModal() {
       onClose={() => setIsOpen(false)}
       onOpen={() => setIsOpen(true)}
     >
-      <NewBudgetForm onSuccess={() => setIsOpen(false)} />
+      <BudgetForm onSuccess={() => setIsOpen(false)} />
     </ModalDialog>
   )
 }
