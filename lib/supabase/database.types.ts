@@ -169,6 +169,24 @@ export type Database = {
           },
         ]
       }
+      recipients_senders: {
+        Row: {
+          id: string
+          name: string
+          avatar_url: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          avatar_url: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          avatar_url?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
