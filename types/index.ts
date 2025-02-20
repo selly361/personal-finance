@@ -54,3 +54,11 @@ export type Category = {
   name: string
   isUsed: boolean
 }
+
+/* ------------------- RecipientSender Type ------------------- */
+
+export type RecipientSender = {
+  id: string
+  name: string
+  avatar_url: string
+}
