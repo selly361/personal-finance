@@ -15,6 +15,16 @@ export const getPots = async () => {
   return data
 }
 
+export const getPotsWithDetails = async () => {
+  const supabase = await createServer()
+
+  const { data, error } = await supabase.rpc('get_pots_with_details')
+
+  if (error) throw error
+
+  return data
+}
+
 export const createPot = async (potData: Pot) => {
   const result = potValidation.safeParse(potData)
 
@@ -22,7 +32,11 @@ export const createPot = async (potData: Pot) => {
 
   const supabase = await createServer()
 
-  const { data, error } = await supabase.from('pots').insert([potData]).select().single()
+  const { data, error } = await supabase
+    .from('pots')
+    .insert([potData])
+    .select()
+    .single()
 
   if (error) return { error: error.message }
 
