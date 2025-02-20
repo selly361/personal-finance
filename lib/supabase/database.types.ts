@@ -200,7 +200,28 @@ export type Database = {
           isused: boolean
         }[]
       }
+      get_budgets_with_details: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          category: string
+          theme: string
+          max_spend: number
+          total_spent: number | null
+        }[]
+      }
+      get_pots_with_details: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          name: string
+          theme: string
+          target: number
+          total: number
+        }[]
+      }
     }
+
     Enums: {
       [_ in never]: never
     }
