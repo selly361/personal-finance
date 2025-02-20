@@ -15,6 +15,16 @@ export const getBudgets = async () => {
   return data
 }
 
+export const getBudgetsWithDetails = async () => {
+  const supabase = await createServer()
+
+  const { data, error } = await supabase.rpc('get_budgets_with_details')
+
+  if (error) throw error
+
+  return data
+}
+
 export const createBudget = async (budgetData: Budget) => {
   const result = budgetValidation.safeParse(budgetData)
 
