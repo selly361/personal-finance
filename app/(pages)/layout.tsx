@@ -5,7 +5,9 @@ export default async function Layout({ children }: PropsWithChildren) {
   return (
     <div className='w-screen flex items-start'>
       <Sidebar />
-      <main className='px-10 pt-8 w-full h-screen'>{children}</main>
+      <main className='px-10 pt-8 w-full h-screen flex flex-col gap-8'>
+        {children}
+      </main>
     </div>
   )
 }
