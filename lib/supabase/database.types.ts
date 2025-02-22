@@ -173,17 +173,17 @@ export type Database = {
         Row: {
           id: string
           name: string
-          avatar_url: string
+          avatar: string
         }
         Insert: {
           id?: string
           name: string
-          avatar_url: string
+          avatar: string
         }
         Update: {
           id?: string
           name?: string
-          avatar_url?: string
+          avatar?: string
         }
         Relationships: []
       }

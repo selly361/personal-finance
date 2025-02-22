@@ -60,5 +60,5 @@ export type Category = {
 export type RecipientSender = {
   id: string
   name: string
-  avatar_url: string
+  avatar: string
 }
