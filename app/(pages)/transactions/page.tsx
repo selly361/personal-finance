@@ -1,4 +1,6 @@
+import { Fragment } from 'react'
 import { Metadata } from 'next/types'
+import NewTransactionModal from './_components/NewTransactionModal'
 
 export const metadata = {
   title: 'Transactions',
@@ -7,9 +9,12 @@ export const metadata = {
 
 async function Page() {
   return (
-    <main>
-      <h1>Transactions</h1>
-    </main>
+    <Fragment>
+      <section className='w-full flex justify-between items-center'>
+        <h1>Transactions</h1>
+        <NewTransactionModal />
+      </section>
+    </Fragment>
   )
 }
 
