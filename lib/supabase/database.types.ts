@@ -16,7 +16,7 @@ export type Database = {
           id: string
           max_spend: number
           theme_id: string
-          total_spent: number | null
+          total_spent: number
           user_id: string | null
         }
         Insert: {
@@ -25,7 +25,7 @@ export type Database = {
           id?: string
           max_spend: number
           theme_id: string
-          total_spent?: number | null
+          total_spent?: number
           user_id?: string | null
         }
         Update: {
@@ -34,23 +34,23 @@ export type Database = {
           id?: string
           max_spend?: number
           theme_id?: string
-          total_spent?: number | null
+          total_spent?: number
           user_id?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: 'budgets_category_id_fkey'
-            columns: ['category_id']
+            foreignKeyName: "budgets_category_id_fkey"
+            columns: ["category_id"]
             isOneToOne: true
-            referencedRelation: 'categories'
-            referencedColumns: ['id']
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'budgets_theme_id_fkey'
-            columns: ['theme_id']
+            foreignKeyName: "budgets_theme_id_fkey"
+            columns: ["theme_id"]
             isOneToOne: true
-            referencedRelation: 'themes'
-            referencedColumns: ['id']
+            referencedRelation: "themes"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -76,7 +76,7 @@ export type Database = {
           name: string
           target: number
           theme_id: string
-          total: number | null
+          total: number
           user_id: string | null
         }
         Insert: {
@@ -85,7 +85,7 @@ export type Database = {
           name: string
           target?: number
           theme_id: string
-          total?: number | null
+          total?: number
           user_id?: string | null
         }
         Update: {
@@ -94,18 +94,54 @@ export type Database = {
           name?: string
           target?: number
           theme_id?: string
-          total?: number | null
+          total?: number
           user_id?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: 'pots_theme_id_fkey'
-            columns: ['theme_id']
+            foreignKeyName: "pots_theme_id_fkey"
+            columns: ["theme_id"]
             isOneToOne: true
-            referencedRelation: 'themes'
-            referencedColumns: ['id']
+            referencedRelation: "themes"
+            referencedColumns: ["id"]
           },
         ]
+      }
+      recipients_senders: {
+        Row: {
+          avatar: string
+          id: string
+          name: string
+        }
+        Insert: {
+          avatar: string
+          id?: string
+          name: string
+        }
+        Update: {
+          avatar?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      summary: {
+        Row: {
+          total_expenses: number
+          total_income: number
+          user_id: string
+        }
+        Insert: {
+          total_expenses?: number
+          total_income?: number
+          user_id: string
+        }
+        Update: {
+          total_expenses?: number
+          total_income?: number
+          user_id?: string
+        }
+        Relationships: []
       }
       themes: {
         Row: {
@@ -131,7 +167,7 @@ export type Database = {
           avatar: string
           category_id: string
           created_at: string | null
-          date: string
+          date: Date
           id: string
           recipient_sender_name: string
           recurring: boolean | null
@@ -142,7 +178,7 @@ export type Database = {
           avatar: string
           category_id: string
           created_at?: string | null
-          date: string
+          date: Date
           id?: string
           recipient_sender_name: string
           recurring?: boolean | null
@@ -153,7 +189,7 @@ export type Database = {
           avatar?: string
           category_id?: string
           created_at?: string | null
-          date?: string
+          date?: Date
           id?: string
           recipient_sender_name?: string
           recurring?: boolean | null
@@ -161,37 +197,59 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'transactions_category_id_fkey'
-            columns: ['category_id']
+            foreignKeyName: "transactions_category_id_fkey"
+            columns: ["category_id"]
             isOneToOne: false
-            referencedRelation: 'categories'
-            referencedColumns: ['id']
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
           },
         ]
-      }
-      recipients_senders: {
-        Row: {
-          id: string
-          name: string
-          avatar: string
-        }
-        Insert: {
-          id?: string
-          name: string
-          avatar: string
-        }
-        Update: {
-          id?: string
-          name?: string
-          avatar?: string
-        }
-        Relationships: []
       }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      get_budgets_with_details: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          category: string
+          theme: string
+          max_spend: number
+          total_spent: number
+        }[]
+      }
+      get_categories_with_budget_usage: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          name: string
+          isused: boolean
+        }[]
+      }
+      get_expenses: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          amount: number
+          category_id: string
+          date: Date
+          recipient_sender_name: string
+          avatar: string
+          recurring: boolean
+        }[]
+      }
+      get_pots_with_details: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          name: string
+          theme: string
+          target: number
+          total: number
+        }[]
+      }
       get_themes_with_budget_usage: {
         Args: Record<PropertyKey, never>
         Returns: {
@@ -210,36 +268,7 @@ export type Database = {
           isused: boolean
         }[]
       }
-      get_categories_with_budget_usage: {
-        Args: Record<PropertyKey, never>
-        Returns: {
-          id: string
-          name: string
-          isused: boolean
-        }[]
-      }
-      get_budgets_with_details: {
-        Args: Record<PropertyKey, never>
-        Returns: {
-          id: string
-          category: string
-          theme: string
-          max_spend: number
-          total_spent: number | null
-        }[]
-      }
-      get_pots_with_details: {
-        Args: Record<PropertyKey, never>
-        Returns: {
-          id: string
-          name: string
-          theme: string
-          target: number
-          total: number
-        }[]
-      }
     }
-
     Enums: {
       [_ in never]: never
     }
@@ -249,27 +278,27 @@ export type Database = {
   }
 }
 
-type PublicSchema = Database[Extract<keyof Database, 'public'>]
+type PublicSchema = Database[Extract<keyof Database, "public">]
 
 export type Tables<
   PublicTableNameOrOptions extends
-    | keyof (PublicSchema['Tables'] & PublicSchema['Views'])
+    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions['schema']]['Tables'] &
-        Database[PublicTableNameOrOptions['schema']]['Views'])
+    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+        Database[PublicTableNameOrOptions["schema"]]["Views"])
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions['schema']]['Tables'] &
-      Database[PublicTableNameOrOptions['schema']]['Views'])[TableName] extends {
+  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (PublicSchema['Tables'] &
-        PublicSchema['Views'])
-    ? (PublicSchema['Tables'] &
-        PublicSchema['Views'])[PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
+        PublicSchema["Views"])
+    ? (PublicSchema["Tables"] &
+        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
         Row: infer R
       }
       ? R
@@ -278,19 +307,19 @@ export type Tables<
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
-    | keyof PublicSchema['Tables']
+    | keyof PublicSchema["Tables"]
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
-    ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
         Insert: infer I
       }
       ? I
@@ -299,19 +328,19 @@ export type TablesInsert<
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
-    | keyof PublicSchema['Tables']
+    | keyof PublicSchema["Tables"]
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions['schema']]['Tables'][TableName] extends {
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema['Tables']
-    ? PublicSchema['Tables'][PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
         Update: infer U
       }
       ? U
@@ -320,28 +349,28 @@ export type TablesUpdate<
 
 export type Enums<
   PublicEnumNameOrOptions extends
-    | keyof PublicSchema['Enums']
+    | keyof PublicSchema["Enums"]
     | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicEnumNameOrOptions['schema']]['Enums']
+    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicEnumNameOrOptions['schema']]['Enums'][EnumName]
-  : PublicEnumNameOrOptions extends keyof PublicSchema['Enums']
-    ? PublicSchema['Enums'][PublicEnumNameOrOptions]
+  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
+    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
     : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
-    | keyof PublicSchema['CompositeTypes']
+    | keyof PublicSchema["CompositeTypes"]
     | { schema: keyof Database },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
     schema: keyof Database
   }
-    ? keyof Database[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes']
+    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
     : never = never,
 > = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes'][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema['CompositeTypes']
-    ? PublicSchema['CompositeTypes'][PublicCompositeTypeNameOrOptions]
+  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
+    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
