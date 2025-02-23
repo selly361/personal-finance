@@ -65,7 +65,7 @@
 
 @layer components {
   .form {
-    @apply space-y-6 mb-8;
+    @apply space-y-6;
   }
 
   .input {
