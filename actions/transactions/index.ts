@@ -5,10 +5,14 @@ import { createServer } from '@/lib/supabase'
 import { revalidatePath } from 'next/cache'
 import { transactionValidation } from '@/lib/validations'
 
-export const getTransactions = async () => {
+export const getTransactions = async (expenses = true) => {
   const supabase = await createServer()
 
-  const { data, error } = await supabase.from('transactions').select('*')
+  let { data, error } = await supabase.from('transactions').select('*')
+
+  if (expenses) {
+    let { data, error } = await supabase.rpc('get_expenses')
+  }
 
   if (error) throw error
 
