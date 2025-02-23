@@ -1,8 +1,4 @@
-import {
-  budgetValidation,
-  potValidation,
-  transactionValidation,
-} from '@/lib/validations'
+import { budgetValidation, potValidation, transactionValidation } from '@/lib/validations'
 
 import { z } from 'zod'
 
@@ -43,7 +39,7 @@ export type Transaction = z.infer<typeof transactionValidation>
 export type Theme = {
   id: string
   name: string
-  color_code: string
+  color: string
   isUsed: boolean
 }
 
@@ -61,4 +57,9 @@ export type RecipientSender = {
   id: string
   name: string
   avatar: string
+}
+
+export type Summary = {
+  expenses: number
+  income: number
 }
