@@ -9,12 +9,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui'
-import { getRecipientsSenders } from '@/actions'
+
 import Image from 'next/image'
 import { RecipientSender } from '@/types'
+import { getRecipientsSenders } from '@/actions'
 
 type Props = {
-  value: { name: string; avatar: string }
+  value: { name: string; avatar: string | undefined }
   onChange: (value: { name: string; avatar: string }) => void
 }
 
@@ -34,11 +35,17 @@ export default function RecipientSenderSelect({ value, onChange }: Props) {
   return (
     <Select
       value={JSON.stringify(value)}
-      onValueChange={(value) => onChange(JSON.parse(value))}
+      onValueChange={(v) => {
+        try {
+          onChange(JSON.parse(v))
+        } catch (error) {
+          
+        }
+      }}
     >
       <SelectTrigger className='w-full'>
         <SelectValue placeholder='Select Recipient / Sender'>
-          {value.name ? (
+          {(value.name && value.avatar) ? (
             <div className='flex items-center gap-2'>
               <Image
                 height={24}
@@ -63,7 +70,7 @@ export default function RecipientSenderSelect({ value, onChange }: Props) {
                 <Image
                   height={24}
                   width={24}
-                  src={recipientSender.avatar_url}
+                  src={recipientSender.avatar}
                   alt={recipientSender.name}
                   priority
                   className='rounded-full'

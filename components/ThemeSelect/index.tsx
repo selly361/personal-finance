@@ -45,7 +45,7 @@ export default function ThemeSelect({ type, value, onChange }: Props) {
               <div className='min-w-full flex items-center gap-2'>
                 <span
                   className='h-4 w-4 rounded-full'
-                  style={{ backgroundColor: theme.color_code }}
+                  style={{ backgroundColor: theme.color }}
                 />
                 <span className='flex-1'>{theme.name}</span>
                 {theme.isUsed && (
