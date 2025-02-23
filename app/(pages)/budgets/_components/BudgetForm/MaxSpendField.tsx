@@ -16,7 +16,7 @@ const MaxSpendField = ({ register, errors }: MaxSpendFieldProps) => {
         {errors.max_spend && <p className='error-text'>{errors.max_spend.message}</p>}
       </div>
         <Input
-          withDollarPrefix
+          withPoundPrefix
           type='number'
           id='max_spend'
           {...register('max_spend', {
