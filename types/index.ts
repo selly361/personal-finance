@@ -1,4 +1,8 @@
-import { budgetValidation, potValidation, transactionValidation } from '@/lib/validations'
+import {
+  budgetValidation,
+  potValidation,
+  transactionValidation,
+} from '@/lib/validations'
 
 import { z } from 'zod'
 
@@ -17,7 +21,7 @@ export type BudgetDetails = {
   category: string
   theme: string
   max_spend: number
-  total_spent: number | null
+  total_spent: number
 }
 
 /* ------------------- Pot Details Type ------------------- */
@@ -62,4 +66,14 @@ export type RecipientSender = {
 export type Summary = {
   expenses: number
   income: number
+}
+
+export type LatestExpense = {
+  budget_id: string
+  id: string
+  amount: number
+  category: string
+  date: string
+  recipient_sender_name: string
+  avatar: string
 }
