@@ -19,6 +19,16 @@ export const getTransactions = async (expenses = true) => {
   return data
 }
 
+export const getLatestExpenses = async () => {
+  const supabase = await createServer()
+
+  const { data, error } = await supabase.rpc('get_latest_expenses')
+
+  if (error) throw error
+
+  return data
+}
+
 export const createTransaction = async (transactionData: Transaction) => {
   const result = transactionValidation.safeParse(transactionData)
 
@@ -66,7 +76,10 @@ export const updateTransaction = async (
 export const deleteTransaction = async (transaction_id: string) => {
   const supabase = await createServer()
 
-  const { error } = await supabase.from('transactions').delete().eq('id', transaction_id)
+  const { error } = await supabase
+    .from('transactions')
+    .delete()
+    .eq('id', transaction_id)
 
   if (error) return { error: error.message }
 
