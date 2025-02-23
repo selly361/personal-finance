@@ -10,7 +10,7 @@ export const transactionValidation = z.object({
       /^[\w\s\-]+$/,
       'Name must only contain alphanumeric characters, spaces, and hyphens'
     ),
-  category_id: z.string().uuid(),
+  category_id: z.string().uuid('Required'),
   avatar: z
     .string()
     .trim()
@@ -19,7 +19,12 @@ export const transactionValidation = z.object({
   date: z
     .date()
     .refine((date) => !isNaN(date.getTime()), 'Date must be a valid date')
-    .refine((date) => date <= new Date(), 'Date cannot be in the future'),
+    .refine(
+      (date) =>
+        date.toISOString().split('T')[0] >= new Date().toISOString().split('T')[0],
+      'Date cannot be in the past'
+    ),
+
   amount: z
     .number()
     .min(-1_000_000, 'Amount must be greater than -1,000,000')
