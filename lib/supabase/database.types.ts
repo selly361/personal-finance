@@ -214,6 +214,8 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: {
           id: string
+          category_id: string
+          theme_id: string
           category: string
           theme: string
           max_spend: number
@@ -309,8 +311,7 @@ export type Tables<
     : never
   : PublicTableNameOrOptions extends keyof (PublicSchema['Tables'] &
         PublicSchema['Views'])
-    ? (PublicSchema['Tables'] &
-        PublicSchema['Views'])[PublicTableNameOrOptions] extends {
+    ? (PublicSchema['Tables'] & PublicSchema['Views'])[PublicTableNameOrOptions] extends {
         Row: infer R
       }
       ? R

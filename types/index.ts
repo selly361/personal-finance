@@ -18,6 +18,8 @@ export type Pot = z.infer<typeof potValidation>
 
 export type BudgetDetails = {
   id: string
+  category_id: string
+  theme_id: string
   category: string
   theme: string
   max_spend: number
