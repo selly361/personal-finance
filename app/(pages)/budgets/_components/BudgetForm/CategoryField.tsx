@@ -19,6 +19,7 @@ const CategoryField = ({
         {error && <p className='error-text'>{error}</p>}
       </div>
       <CategorySelect
+        error={error}
         onChange={handleCategoryChange}
         value={categoryId}
         withBudgetUsage={true}
