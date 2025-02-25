@@ -5,15 +5,15 @@ import { Transaction } from '@/types'
 
 interface AmountFieldProps {
   register: UseFormRegister<Transaction>
-  errors: FieldErrors<Transaction>
+  error?: string | undefined
 }
 
-const AmountField = ({ register, errors }: AmountFieldProps) => {
+const AmountField = ({ register, error }: AmountFieldProps) => {
   return (
     <fieldset>
       <div className='label'>
-        <Label>Amount</Label>
-        {errors.amount && <p className='error-text'>{errors.amount.message}</p>}
+        <Label className={error ? 'label-error' : ''}>Amount</Label>
+        {error && <p className='error-text'>{error}</p>}
       </div>
       <Input
         withPoundPrefix
@@ -24,8 +24,8 @@ const AmountField = ({ register, errors }: AmountFieldProps) => {
         })}
         min={-1000000}
         max={1000000}
-        className={`input w-full pl-6 ${errors.amount ? 'input-error' : ''}`}
-        aria-invalid={errors.amount ? 'true' : 'false'}
+        className={`input w-full pl-6 ${error ? 'input-error' : ''}`}
+        aria-invalid={error ? 'true' : 'false'}
       />
     </fieldset>
   )
