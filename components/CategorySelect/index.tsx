@@ -17,12 +17,14 @@ type Props = {
   withBudgetUsage?: boolean
   value: string
   onChange: (value: string) => void
+  error?: string | undefined
 }
 
 export default function CategorySelect({
   withBudgetUsage = false,
   value,
   onChange,
+  error,
 }: Props) {
   const [categories, setCategories] = useState<Category[]>([])
 
@@ -40,7 +42,9 @@ export default function CategorySelect({
 
   return (
     <Select value={value} onValueChange={onChange}>
-      <SelectTrigger className='w-full'>
+      <SelectTrigger
+        className={`w-full shadow-md ${error ? 'border-red-500' : ''}`}
+      >
         <SelectValue placeholder='Select Category' />
       </SelectTrigger>
       <SelectContent>
