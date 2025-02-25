@@ -1,4 +1,6 @@
 import { Metadata } from 'next/types'
+import NewPotModal from './_components/NewPotModal'
+import { Fragment } from 'react'
 
 export const metadata = {
   title: 'Pots',
@@ -7,9 +9,12 @@ export const metadata = {
 
 async function Page() {
   return (
-    <main>
-      <h1>Pots</h1>
-    </main>
+    <Fragment>
+      <section className='w-full flex justify-between items-center'>
+        <h1>Pots</h1>
+        <NewPotModal />
+      </section>
+    </Fragment>
   )
 }
 
