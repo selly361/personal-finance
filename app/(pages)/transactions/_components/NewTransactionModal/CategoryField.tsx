@@ -21,6 +21,7 @@ const CategoryField = ({
       <CategorySelect
         onChange={handleCategoryChange}
         value={categoryId}
+        error={error}
       />
     </fieldset>
   )
