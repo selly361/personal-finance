@@ -14,7 +14,12 @@ const ThemeField = ({ themeId, handleThemeChange, error }: ThemeFieldProps) => {
         <Label className={error ? 'label-error' : ''}>Theme</Label>
         {error && <p className='error-text'>{error}</p>}
       </div>
-      <ThemeSelect onChange={handleThemeChange} value={themeId} type='budgets' />
+      <ThemeSelect
+        error={error}
+        onChange={handleThemeChange}
+        value={themeId}
+        type='budgets'
+      />
     </fieldset>
   )
 }
