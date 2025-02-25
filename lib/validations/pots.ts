@@ -4,12 +4,20 @@ export const potValidation = z.object({
   name: z
     .string()
     .trim()
-    .min(3, 'Pot name must be at least 3 characters')
-    .max(30, 'Pot name must be less than 30 characters'),
+    .min(3, 'Pot name must be at least 3 characters long.')
+    .max(30, 'Pot name cannot exceed 30 characters.')
+    .nonempty('Pot name is required.'),
+
   target: z
     .number()
-    .min(0, 'Target amount must be a positive number')
-    .max(1_000_000_000, 'Target amount is too large')
-    .refine((val) => Number.isFinite(val), { message: 'Invalid number' }),
-  theme_id: z.string().uuid(),
+    .min(100, 'Target amount must be at least 100.')
+    .max(
+      1_000_000_000,
+      'Target amount is too large. Please enter a smaller amount.'
+    )
+    .refine((val) => Number.isFinite(val), {
+      message: 'Please enter a valid number.',
+    }),
+
+  theme_id: z.string().uuid('Please select a valid theme color.'),
 })
