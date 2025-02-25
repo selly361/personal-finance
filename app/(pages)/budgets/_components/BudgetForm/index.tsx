@@ -32,7 +32,7 @@ const BudgetForm = ({ onSuccess, budget, budget_id }: BudgetFormProps) => {
         handleCategoryChange={handleCategoryChange}
         error={errors.category_id?.message}
       />
-      <MaxSpendField register={register} errors={errors} />
+      <MaxSpendField register={register} error={errors.max_spend?.message} />
       <ThemeField
         themeId={watch().theme_id}
         handleThemeChange={handleThemeChange}

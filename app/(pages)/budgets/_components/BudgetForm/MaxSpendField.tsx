@@ -1,31 +1,31 @@
-import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import { UseFormRegister } from 'react-hook-form'
 import { Input, Label } from '@/components/ui'
 
 import { Budget } from '@/types'
 
 interface MaxSpendFieldProps {
   register: UseFormRegister<Budget>
-  errors: FieldErrors<Budget>
+  error: string | undefined
 }
 
-const MaxSpendField = ({ register, errors }: MaxSpendFieldProps) => {
+const MaxSpendField = ({ register, error }: MaxSpendFieldProps) => {
   return (
     <fieldset>
       <div className='label'>
-        <Label>Maximum Spend</Label>
-        {errors.max_spend && <p className='error-text'>{errors.max_spend.message}</p>}
+        <Label className={error ? 'label-error' : ''}>Maximum Spend</Label>
+        {error && <p className='error-text'>{error}</p>}
       </div>
-        <Input
-          withPoundPrefix
-          type='number'
-          id='max_spend'
-          {...register('max_spend', {
-            setValueAs: (value) => (value === '' ? undefined : Number(value)),
-          })}
-          min={0}
-          className={`input w-full pl-6 ${errors.max_spend ? 'input-error' : ''}`}
-          aria-invalid={errors.max_spend ? 'true' : 'false'}
-        />
+      <Input
+        withPoundPrefix
+        type='number'
+        id='max_spend'
+        {...register('max_spend', {
+          setValueAs: (value) => (value === '' ? undefined : Number(value)),
+        })}
+        min={0}
+        className={`input w-full pl-6 ${error ? 'input-error' : ''}`}
+        aria-invalid={error ? 'true' : 'false'}
+      />
     </fieldset>
   )
 }
