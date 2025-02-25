@@ -50,14 +50,14 @@ const TransactionForm = ({
         </div>
         <DatePicker selected={watch().date} onSelect={handleDateChange} />
       </fieldset>
-      <AmountField register={register} errors={errors} />
-      <Label className="flex items-center gap-2">
-      <Checkbox
-        checked={watch("recurring")}
-        onCheckedChange={(checked) => setValue("recurring", checked === true)}
-      />
-      <span>Recurring Transaction</span>
-    </Label>
+      <AmountField register={register} error={errors.amount?.message} />
+      <Label className='flex items-center gap-2'>
+        <Checkbox
+          checked={watch('recurring')}
+          onCheckedChange={(checked) => setValue('recurring', checked === true)}
+        />
+        <span>Recurring Transaction</span>
+      </Label>
       <SubmitButton className='w-full min-h-12' loading={isSubmitting}>
         {transaction ? 'Update Transaction' : 'Add Transaction'}
       </SubmitButton>
