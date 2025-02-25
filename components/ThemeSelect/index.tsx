@@ -17,9 +17,10 @@ type Props = {
   type: 'budgets' | 'pots'
   value: string
   onChange: (value: string) => void
+  error?: string
 }
 
-export default function ThemeSelect({ type, value, onChange }: Props) {
+export default function ThemeSelect({ type, value, onChange, error }: Props) {
   const [themes, setThemes] = useState<Theme[]>([])
 
   useEffect(() => {
@@ -35,7 +36,9 @@ export default function ThemeSelect({ type, value, onChange }: Props) {
 
   return (
     <Select value={value} onValueChange={onChange}>
-      <SelectTrigger className='w-full shadow-md'>
+      <SelectTrigger
+        className={`w-full shadow-md ${error ? 'border-red-500' : ''}`}
+      >
         <SelectValue placeholder='Select theme' />
       </SelectTrigger>
       <SelectContent>
