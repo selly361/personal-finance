@@ -5,18 +5,17 @@ import { ModalDialog } from '@/components'
 import { useState } from 'react'
 
 function NewBudgetModal() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [open, setOpen] = useState(false)
 
   return (
     <ModalDialog
       title='Add New Budget'
       description='Choose a category to set a spending budget. These categories can help you monitor spending.'
       triggerLabel='+ Add New Budget'
-      isOpen={isOpen}
-      onClose={() => setIsOpen(false)}
-      onOpen={() => setIsOpen(true)}
+      isOpen={open}
+      setOpen={setOpen}
     >
-      <BudgetForm onSuccess={() => setIsOpen(false)} />
+      <BudgetForm onSuccess={() => setOpen(false)} />
     </ModalDialog>
   )
 }

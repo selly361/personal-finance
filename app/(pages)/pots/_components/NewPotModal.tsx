@@ -1,22 +1,21 @@
 'use client'
 
-import PotForm from './PotForm'
 import { ModalDialog } from '@/components'
+import PotForm from './PotForm'
 import { useState } from 'react'
 
 function NewPotModal() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [Open, setOpen] = useState(false)
 
   return (
     <ModalDialog
       title='Add New Pot'
       description='Create a pot to set savings targets. These can help keep you on track as you save for special purchases.'
       triggerLabel='+ Add New Pot'
-      isOpen={isOpen}
-      onClose={() => setIsOpen(false)}
-      onOpen={() => setIsOpen(true)}
+      isOpen={Open}
+      setOpen={setOpen}
     >
-      <PotForm onSuccess={() => setIsOpen(false)} />
+      <PotForm onSuccess={() => setOpen(false)} />
     </ModalDialog>
   )
 }
