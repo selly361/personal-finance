@@ -1,13 +1,16 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { getLatestExpenses } from '@/actions'
+import { Budget, BudgetDetails, LatestExpense } from '@/types'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui'
 import { useEffect, useState } from 'react'
-import { BudgetDetails, LatestExpense } from '@/types'
-import Image from 'next/image'
+
 import { ArrowRightIcon } from '@/components/icons'
-import { MoreHorizontal } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
+import { MoreHorizontal } from 'lucide-react'
+import { OptionsDropdown } from '@/components'
+import { getLatestExpenses } from '@/actions'
+import { motion } from 'framer-motion'
 
 const BudgetCard = ({
   id,
@@ -15,15 +18,15 @@ const BudgetCard = ({
   max_spend,
   category,
   theme,
+  theme_id,
+  category_id,
 }: BudgetDetails) => {
   const [transactions, setTransactions] = useState<LatestExpense[]>([])
 
   useEffect(() => {
     ;(async () => {
       const expenses = await getLatestExpenses()
-      const filteredExpenses = expenses
-        .filter((e) => e.category === category)
-        .slice(0, 3)
+      const filteredExpenses = expenses.filter((e) => e.category === category).slice(0, 3)
       setTransactions(filteredExpenses)
     })()
   }, [id])
@@ -34,18 +37,14 @@ const BudgetCard = ({
     <div className='bg-white p-6 rounded-xl w-full relative'>
       <div className='flex justify-between items-center'>
         <div className='flex items-center gap-2'>
-          <span
-            className={'h-3 w-3 rounded-full'}
-            style={{ background: theme }}
-          />
+          <span className={'h-3 w-3 rounded-full'} style={{ background: theme }} />
           <h3 className='text-lg font-bold text-grey-900'>{category}</h3>
         </div>
-        <MoreHorizontal className='text-gray-400 cursor-pointer' />
+
+        <OptionsDropdown title={category} id={id} budget={{theme_id, category_id, max_spend}} />
       </div>
 
-      <p className='text-gray-500 text-sm mt-1'>
-        Maximum of £{max_spend.toFixed(2)}
-      </p>
+      <p className='text-gray-500 text-sm mt-1'>Maximum of £{max_spend.toFixed(2)}</p>
 
       <div className='w-full bg-gray-200 rounded-full h-6 mt-4 relative'>
         <motion.div
@@ -59,15 +58,10 @@ const BudgetCard = ({
 
       <div className='w-full flex justify-between mt-2'>
         <div className='w-[50%] flex gap-4'>
-          <div
-            className='w-1 h-full rounded-lg'
-            style={{ background: theme }}
-          ></div>
+          <div className='w-1 h-full rounded-lg' style={{ background: theme }}></div>
           <div className='flex flex-col gap-1 pl-5'>
             <h6 className='text-grey-500 text-xs'>Spent</h6>
-            <p className='text-sm text-grey-900 font-bold'>
-              £{total_spent.toFixed(2)}
-            </p>
+            <p className='text-sm text-grey-900 font-bold'>£{total_spent.toFixed(2)}</p>
           </div>
         </div>
         <div className='w-[50%] flex gap-4'>
@@ -110,9 +104,7 @@ const BudgetCard = ({
                   />
                 )}
                 <div className='flex flex-col'>
-                  <span className='text-sm font-medium'>
-                    {t.recipient_sender_name}
-                  </span>
+                  <span className='text-sm font-medium'>{t.recipient_sender_name}</span>
                 </div>
               </div>
               <div className='flex flex-col items-end'>
