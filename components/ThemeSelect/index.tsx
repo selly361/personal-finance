@@ -51,11 +51,6 @@ export default function ThemeSelect({ type, value, onChange, error }: Props) {
                   style={{ backgroundColor: theme.color }}
                 />
                 <span className='flex-1'>{theme.name}</span>
-                {theme.isUsed && (
-                  <span className='text-sm text-gray-500 absolute right-2'>
-                    Already Used
-                  </span>
-                )}
               </div>
             </SelectItem>
             <SelectSeparator />
