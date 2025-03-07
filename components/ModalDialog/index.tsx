@@ -1,25 +1,25 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogDescription,
 } from '@/components/ui/dialog'
 
+import { Button } from '@/components/ui/button'
+
 interface ModalDialogProps {
-  triggerLabel: string
+  triggerLabel?: string
   title: string
   description?: string
   triggerButtonProps?: React.ComponentProps<typeof Button>
   className?: string
   children: React.ReactNode
   isOpen?: boolean
-  onOpen?: () => void
-  onClose?: () => void
+  setOpen?: (open: boolean) => void
 }
 
 export default function ModalDialog({
@@ -30,20 +30,23 @@ export default function ModalDialog({
   className,
   children,
   isOpen,
-  onOpen,
-  onClose,
+  setOpen,
 }: ModalDialogProps) {
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => (open ? onOpen?.() : onClose?.())}>
-      <DialogTrigger asChild>
-        <Button {...triggerButtonProps} onClick={onOpen}>
-          {triggerLabel}
-        </Button>
-      </DialogTrigger>
-      <DialogContent className={className ?? 'w-11/12'}>
+    <Dialog open={isOpen} onOpenChange={setOpen}>
+      {triggerLabel ? (
+        <DialogTrigger asChild>
+          <Button {...triggerButtonProps}>{triggerLabel}</Button>
+        </DialogTrigger>
+      ) : null}
+      <DialogContent className={className || 'w-11/12'}>
         <DialogHeader className='mb-4'>
           <DialogTitle className='text-xl text-grey-900'>{title}</DialogTitle>
-          {description && <DialogDescription className='text-sm text-grey-500 mb-4'>{description}</DialogDescription>}
+          {description && (
+            <DialogDescription className='text-sm text-grey-500 mb-4'>
+              {description}
+            </DialogDescription>
+          )}
         </DialogHeader>
         {children}
       </DialogContent>
