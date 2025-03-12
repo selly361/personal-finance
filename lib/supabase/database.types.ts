@@ -259,6 +259,7 @@ export type Database = {
         Returns: {
           id: string
           name: string
+          theme_id: string
           theme: string
           target: number
           total: number
