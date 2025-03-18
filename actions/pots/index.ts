@@ -77,3 +77,42 @@ export const deletePot = async (pot_id: string) => {
   revalidatePath('/pots')
   return { success: true }
 }
+
+
+
+export const updatePotAmount = async (
+  pot_id: string,
+  amount: number,
+  mode: 'add' | 'withdraw'
+) => {
+  const supabase = await createServer()
+
+  const { data: pot, error } = await supabase
+    .from('pots')
+    .select('*')
+    .eq('id', pot_id)
+    .single()
+
+  if (error) return { error: error.message }
+  if (!pot) return { error: 'Pot not found' }
+
+  let newTotal = pot.total
+  if (mode === 'add') newTotal += amount
+  else newTotal -= amount
+
+  if (newTotal < 0) return { error: 'Insufficient funds' }
+
+  const { data: updated, error: updateError } = await supabase
+    .from('pots')
+    .update({ total: newTotal })
+    .eq('id', pot_id)
+    .select()
+    .single()
+
+  if (updateError) return { error: updateError.message }
+
+  revalidatePath('/')
+  revalidatePath('/pots')
+
+  return { data: updated }
+}
