@@ -31,6 +31,7 @@ export type BudgetDetails = {
 export type PotDetails = {
   id: string
   name: string
+  theme_id: string
   theme: string
   target: number
   total: number
