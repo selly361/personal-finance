@@ -1,18 +1,21 @@
 'use client'
 
-import { Input, Progress } from '@/components/ui'
+import { Controller, useForm } from 'react-hook-form'
+import { Input, Label, Progress } from '@/components/ui'
 
 import { PotDetails } from '@/types'
 import { SubmitButton } from '@/components'
 import { potAmountValidation } from '@/lib/validations'
 import { updatePotAmount } from '@/actions'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 interface PotAmountFormProps extends PotDetails {
   mode: 'add' | 'withdraw'
   onSuccess?: (updated: any) => void
+}
+
+interface FormValues {
+  amount: number | ''
 }
 
 export default function PotAmountForm({
@@ -29,22 +32,26 @@ export default function PotAmountForm({
   const schema = potAmountValidation(max)
 
   const {
-    register,
-    watch,
+    control,
     handleSubmit,
+    setError,
+    clearErrors,
     formState: { errors, isSubmitting },
-  } = useForm<z.infer<typeof schema>>({
+    watch,
+  } = useForm<FormValues>({
     resolver: zodResolver(schema),
+    defaultValues: { amount: '' },
   })
 
   const typedAmount = watch('amount') || 0
-  const newTotal = mode === 'withdraw' ? total - typedAmount : total + typedAmount
-
+  const newTotal =
+    mode === 'withdraw' ? total - (typedAmount || 0) : total + (typedAmount || 0)
   const currentProgress = (total / target) * 100
   const newProgress = (newTotal / target) * 100
   const progressChange = newProgress - currentProgress
 
-  async function onSubmit({ amount }: { amount: number }) {
+  async function onSubmitHandler({ amount }: FormValues) {
+    if (amount === '') return
     const res = await updatePotAmount(id, amount, mode)
     if (!res?.error) {
       onSuccess?.(res.data)
@@ -81,25 +88,65 @@ export default function PotAmountForm({
         <span className='text-grey-500'>Target of £{target.toFixed(2)}</span>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className='space-y-3'>
-        <label className='block text-sm font-medium text-grey-700'>
-          Amount to {mode === 'withdraw' ? 'Withdraw' : 'Add'}
-        </label>
-        <div>
-          <Input
-            type='number'
-            step='0.01'
-            min={1}
-            max={max}
-            {...register('amount', { valueAsNumber: true })}
-            withPoundPrefix
-          />
-          {errors.amount && (
-            <p className='mt-1 text-xs text-red-500'>{errors.amount.message}</p>
-          )}
+      <form onSubmit={handleSubmit(onSubmitHandler)} className='space-y-3'>
+        <div className='label'>
+          <Label className={errors.amount ? 'label-error' : ''}>
+            Amount to {mode === 'withdraw' ? 'Withdraw' : 'Add'}
+          </Label>
+          {errors.amount && <p className='error-text'>{errors.amount.message}</p>}
         </div>
 
-        <SubmitButton loading={isSubmitting} className='w-full'>
+        <Controller
+          name='amount'
+          control={control}
+          render={({ field: { onChange, value, ref } }) => (
+            <Input
+              type='number'
+              step='0.01'
+              min={1}
+              max={max}
+              value={value === '' ? '' : value}
+              onChange={(e) => {
+                const raw = e.target.value
+                if (raw === '') {
+                  onChange('')
+                  clearErrors('amount')
+                  return
+                }
+                const num = parseFloat(raw)
+                if (Number.isNaN(num)) {
+                  onChange('')
+                  setError('amount', {
+                    type: 'manual',
+                    message: 'Please enter a valid number',
+                  })
+                  return
+                }
+                if (num < 1) {
+                  setError('amount', {
+                    type: 'manual',
+                    message: 'Amount must be at least £1',
+                  })
+                  return
+                }
+                if (num > max) {
+                  setError('amount', {
+                    type: 'manual',
+                    message: `Amount cannot exceed £${max}`,
+                  })
+                  return
+                }
+                clearErrors('amount')
+                onChange(num)
+              }}
+              ref={ref}
+              withPoundPrefix
+              className={`input w-full pl-6 ${errors.amount ? 'input-error' : ''}`}
+            />
+          )}
+        />
+
+        <SubmitButton loading={isSubmitting} className='w-full h-[53px]'>
           {mode === 'withdraw' ? 'Confirm Withdrawal' : 'Confirm Addition'}
         </SubmitButton>
       </form>
