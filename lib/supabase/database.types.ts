@@ -283,6 +283,30 @@ export type Database = {
           isused: boolean
         }[]
       }
+      get_recurring_bills_summary: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          bills: {
+            id: string
+            bill_title: string
+            due_date: string 
+            due_date_label: string
+            amount: number
+            status: 'paid' | 'due_soon' | 'upcoming'
+            avatar: string
+          }[]
+          summary: {
+            total_paid: number
+            count_paid: number
+            total_upcoming: number
+            count_upcoming: number
+            total_due_soon: number
+            count_due_soon: number
+            total_bills: number
+            count_bills: number
+          }
+        }
+      }
     }
     Enums: {
       [_ in never]: never
