@@ -13,12 +13,19 @@ const AmountField = ({ register, error }: AmountFieldProps) => {
     <fieldset>
       <div className='label'>
         <Label className={error ? 'label-error' : ''}>Amount</Label>
-        {error && <p className='error-text'>{error}</p>}
+        {error ? (
+          <p className='error-text'>{error}</p>
+        ) : (
+          <p className='text-xs text-grey-500'>
+            {' '}
+            Enter negative values for expenses and positive for income
+          </p>
+        )}
       </div>
       <Input
         withPoundPrefix
         type='number'
-        id='max_spend'
+        id='amount'
         {...register('amount', {
           setValueAs: (value) => (value === '' ? undefined : Number(value)),
         })}
