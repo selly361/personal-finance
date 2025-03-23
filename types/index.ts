@@ -1,8 +1,4 @@
-import {
-  budgetValidation,
-  potValidation,
-  transactionValidation,
-} from '@/lib/validations'
+import { budgetValidation, potValidation, transactionValidation } from '@/lib/validations'
 
 import { z } from 'zod'
 
@@ -66,10 +62,14 @@ export type RecipientSender = {
   avatar: string
 }
 
+/* ------------------- Summary Type ------------------- */
+
 export type Summary = {
   expenses: number
   income: number
 }
+
+/* ------------------- LatestExpense Type ------------------- */
 
 export type LatestExpense = {
   budget_id: string
@@ -79,4 +79,32 @@ export type LatestExpense = {
   date: string
   recipient_sender_name: string
   avatar: string
+}
+
+/* ------------------- Recurring Bill Type ------------------- */
+
+export type RecurringBill = {
+  id: string
+  bill_title: string
+  due_date: string
+  due_date_label: string
+  amount: number
+  avatar: string
+  status: 'paid' | 'due_soon' | 'upcoming'
+}
+
+/* ------------------- Recurring Bills Summary Type ------------------- */
+
+export type RecurringBillsSummary = {
+  bills: RecurringBill[]
+  summary: {
+    total_paid: number
+    count_paid: number
+    total_due_soon: number
+    count_due_soon: number
+    total_upcoming: number
+    count_upcoming: number
+    total_bills: number
+    count_bills: number
+  }
 }
