@@ -1,7 +1,7 @@
 'use client'
 
 import { ModalDialog } from '@/components'
-import TransactionForm from './TransactionForm'
+import TransactionForm from '../TransactionForm'
 import { useState } from 'react'
 
 function NewTransactionModal() {
