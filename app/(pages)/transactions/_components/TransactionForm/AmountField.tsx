@@ -6,19 +6,19 @@ import { Transaction } from '@/types'
 interface AmountFieldProps {
   register: UseFormRegister<Transaction>
   error?: string | undefined
+  isRecurring: boolean
 }
 
-const AmountField = ({ register, error }: AmountFieldProps) => {
+const AmountField = ({ register, error, isRecurring }: AmountFieldProps) => {
   return (
     <fieldset>
       <div className='label'>
         <Label className={error ? 'label-error' : ''}>Amount</Label>
-        {error ? (
+        {(error || isRecurring) ? (
           <p className='error-text'>{error}</p>
         ) : (
           <p className='text-xs text-grey-500'>
-            {' '}
-            Enter negative values for expenses and positive for income
+            Negative values for expenses and positive for income
           </p>
         )}
       </div>
