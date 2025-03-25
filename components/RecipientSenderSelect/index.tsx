@@ -17,9 +17,10 @@ import { getRecipientsSenders } from '@/actions'
 type Props = {
   value: { name: string; avatar: string | undefined }
   onChange: (value: { name: string; avatar: string }) => void
+  error?: string
 }
 
-export default function RecipientSenderSelect({ value, onChange }: Props) {
+export default function RecipientSenderSelect({ value, onChange, error }: Props) {
   const [recipientsSenders, setRecipientsSenders] = useState<RecipientSender[]>(
     []
   )
@@ -43,7 +44,7 @@ export default function RecipientSenderSelect({ value, onChange }: Props) {
         }
       }}
     >
-      <SelectTrigger className='w-full'>
+      <SelectTrigger className={`w-full ${error ? 'border-red-500' : ''}`} >
         <SelectValue placeholder='Select Recipient / Sender'>
           {(value.name && value.avatar) ? (
             <div className='flex items-center gap-2'>
