@@ -307,6 +307,25 @@ export type Database = {
           }
         }
       }
+      get_transactions_overview: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          transactions: {
+            id: string
+            avatar: string
+            recipient_sender_name: string
+            category_id: string
+            category_name: string | null
+            amount: number
+            date: string
+            created_at: string | null
+          }[]
+          categories: {
+            id: string
+            name: string
+          }[]
+      }
+    }
     }
     Enums: {
       [_ in never]: never
