@@ -10,7 +10,7 @@ interface RecurringBillsTableProps {
 
 export default function RecurringBillsTable({ bills }: RecurringBillsTableProps) {
   if (bills.length === 0) {
-    return <p className='text-sm text-grey-500 mt-4'>No bills found.</p>
+    return <p className='text-sm text-grey-500 mt-4 text-center'>No bills found.</p>
   }
 
   return (
