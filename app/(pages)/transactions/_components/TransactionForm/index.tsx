@@ -34,10 +34,21 @@ const TransactionForm = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='form'>
-      <RecipientSenderSelect
-        value={{ name: watch().recipient_sender_name, avatar: watch().avatar }}
-        onChange={handleRecipientSenderChange}
-      />
+      <fieldset>
+        <div className='label'>
+          <Label className={(errors.recipient_sender_name || errors.avatar) ? 'label-error' : ''}>
+            Recipient / Sender
+          </Label>
+          {(errors.recipient_sender_name || errors.avatar) && (
+            <p className='error-text'>{errors.recipient_sender_name?.message}</p>
+          )}
+        </div>
+        <RecipientSenderSelect
+          value={{ name: watch().recipient_sender_name, avatar: watch().avatar }}
+          onChange={handleRecipientSenderChange}
+          error={errors.recipient_sender_name?.message}
+        />
+      </fieldset>
       <CategoryField
         categoryId={watch().category_id}
         handleCategoryChange={handleCategoryChange}
@@ -50,7 +61,7 @@ const TransactionForm = ({
         </div>
         <DatePicker selected={watch().date} onSelect={handleDateChange} />
       </fieldset>
-      <AmountField register={register} error={errors.amount?.message} />
+      <AmountField isRecurring={watch('recurring')} register={register} error={errors.amount?.message} />
       <Label className='flex items-center gap-2'>
         <Checkbox
           checked={watch('recurring')}
