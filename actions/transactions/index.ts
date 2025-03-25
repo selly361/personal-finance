@@ -1,6 +1,7 @@
 'use server'
 
-import { Transaction } from '@/types'
+import { Transaction, TransactionsOverview } from '@/types'
+
 import { createServer } from '@/lib/supabase'
 import { revalidatePath } from 'next/cache'
 import { transactionValidation } from '@/lib/validations'
@@ -17,6 +18,16 @@ export const getTransactions = async (expenses = true) => {
   if (error) throw error
 
   return data
+}
+
+export const getTransactionsOverview = async (): Promise<TransactionsOverview> => {
+  const supabase = await createServer()
+
+  const { data, error } = await supabase.rpc('get_transactions_overview')
+
+  if (error) throw error
+
+  return data as TransactionsOverview
 }
 
 export const getLatestExpenses = async () => {
