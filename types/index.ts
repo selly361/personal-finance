@@ -108,3 +108,23 @@ export type RecurringBillsSummary = {
     count_bills: number
   }
 }
+
+/* ------------------- TransactionsOverview Type ------------------- */
+
+
+export type TransactionsOverview = {
+  transactions: {
+    id: string
+    avatar: string
+    recipient_sender_name: string
+    category_id: string
+    category_name: string
+    amount: number
+    date: string
+    created_at: string | null
+  }[]
+  categories: {
+    id: string
+    name: string
+  }[]
+}
