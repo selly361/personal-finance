@@ -23,6 +23,7 @@
     "date-fns": "^4.1.0",
     "framer-motion": "^12.4.1",
     "lucide-react": "^0.468.0",
+    "millify": "^6.1.0",
     "next": "latest",
     "prettier": "^3.3.3",
     "react": "19.0.0",
