@@ -1,11 +1,10 @@
-import { getBudgetsWithDetails } from '@/actions'
-
-import BudgetPieChart from './_components/BudgetPieChart'
+import { BudgetPieChart } from '@/components'
+import Budgets from './_components/Budgets'
 import { Fragment } from 'react'
 import { Metadata } from 'next/types'
 import NewBudgetModal from './_components/NewBudgetModal'
 import SpendingSummary from './_components/SpendingSummary'
-import Budgets from './_components/Budgets'
+import { getBudgetsWithDetails } from '@/actions'
 
 export const metadata = {
   title: 'Budgets',
