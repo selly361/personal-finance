@@ -48,7 +48,7 @@ const BudgetCard = ({
 
       <div className='w-full bg-gray-200 rounded-full h-6 mt-4 relative'>
         <motion.div
-          className='h-6 rounded-md'
+          className='h-6 rounded-md max-w-full'
           style={{ background: theme }}
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
