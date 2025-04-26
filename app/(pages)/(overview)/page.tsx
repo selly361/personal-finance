@@ -50,7 +50,7 @@ async function Page() {
         </Button>
       </section>
       <SummaryStats {...summary} />
-      <section className="flex gap-6">
+      <section className="flex gap-6 max-xl:flex-col">
         <section className="w-full flex flex-col gap-6">
           <PotsOverviewCard pots={pots} />
           <TransactionsOverviewCard transactions={latestTransactions} />
