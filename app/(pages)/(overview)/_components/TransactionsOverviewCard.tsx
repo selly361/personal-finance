@@ -1,8 +1,9 @@
 "use client"
 
+import { cn, formatNumber } from "@/lib/utils"
+
 import { ArrowRightIcon } from "@/components/icons"
 import Link from "next/link"
-import { cn } from "@/lib/utils"
 import millify from "millify"
 
 interface TransactionItem {
@@ -44,8 +45,8 @@ export default function TransactionsOverviewCard({
             })
             const isExpense = tx.amount < 0
             const displayAmount = isExpense
-              ? `-£${millify(Math.abs(tx.amount), { precision: 3 })}`
-              : `+£${millify(tx.amount, { precision: 3 })}`
+              ? `-£${formatNumber(Math.abs(tx.amount))}`
+              : `+£${formatNumber(tx.amount)}`
             return (
               <div
                 key={tx.id}

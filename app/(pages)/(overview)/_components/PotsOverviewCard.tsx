@@ -4,19 +4,14 @@ import { ArrowRightIcon, PotIcon } from '@/components/icons'
 
 import Link from 'next/link'
 import { PotDetails } from '@/types'
-import millify from 'millify'
+import { formatNumber } from '@/lib/utils'
 
 interface PotsOverviewCardProps {
   pots: PotDetails[]
 }
 
 export default function PotsOverviewCard({ pots }: PotsOverviewCardProps) {
-  const totalSaved = millify(
-    pots.reduce((sum, pot) => sum + pot.total, 0),
-    {
-      precision: 3,
-    }
-  )
+  const totalSaved = formatNumber(pots.reduce((sum, pot) => sum + pot.total, 0))
 
   return (
     <div className='h-max bg-white rounded-xl p-6 shadow flex flex-col gap-6 w-full'>
@@ -31,7 +26,7 @@ export default function PotsOverviewCard({ pots }: PotsOverviewCardProps) {
         </Link>
       </div>
 
-      <div className='flex flex-col gap-6 w-max'>
+      <div className='flex flex-col gap-6 w-max max-xl:w-full'>
         <div className='bg-beige-100 rounded-lg p-4 flex flex-col items-start justify-center gap-2 pr-12'>
           <div className='flex items-center gap-3'>
             <PotIcon />
@@ -52,7 +47,7 @@ export default function PotsOverviewCard({ pots }: PotsOverviewCardProps) {
               <div className='flex-col gap-1'>
                 <p className='text-sm text-grey-700 line-clamp-1'>{pot.name}</p>
                 <p className='text-sm font-bold text-grey-900'>
-                  £{millify(pot.total, { precision: 3 })}
+                  £{formatNumber(pot.total)}
                 </p>
               </div>
             </div>

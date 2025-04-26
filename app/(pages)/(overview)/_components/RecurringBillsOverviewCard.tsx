@@ -3,7 +3,7 @@
 import { ArrowRightIcon } from '@/components/icons'
 import Link from 'next/link'
 import { RecurringBillsSummary } from '@/types'
-import millify from 'millify'
+import { formatNumber } from '@/lib/utils'
 
 interface RecurringBillsOverviewCardProps {
   summary: RecurringBillsSummary['summary']
@@ -28,19 +28,19 @@ export default function RecurringBillsOverviewCard({
         <div className='flex items-center gap-3 p-3 bg-beige-100 rounded-lg border-l-4 border-l-green'>
           <span className='text-sm text-grey-900'>Paid Bills</span>
           <span className='ml-auto text-sm font-bold text-grey-900'>
-            £{millify(summary.total_paid, { precision: 3 })}
+            £{formatNumber(summary.total_paid)}
           </span>
         </div>
         <div className='flex items-center gap-3 p-3 bg-beige-100 rounded-lg border-l-4 border-l-yellow'>
           <span className='text-sm text-grey-900'>Total Upcoming</span>
           <span className='ml-auto text-sm font-bold text-grey-900'>
-            £{millify(summary.total_upcoming, { precision: 3 })}
+            £{formatNumber(summary.total_upcoming)}
           </span>
         </div>
         <div className='flex items-center gap-3 p-3 bg-beige-100 rounded-lg border-l-4 border-l-cyan'>
           <span className='text-sm text-grey-900'>Due Soon</span>
           <span className='ml-auto text-sm font-bold text-grey-900'>
-            £{millify(summary.total_due_soon, { precision: 3 })}
+            £{formatNumber(summary.total_due_soon)}
           </span>
         </div>
       </div>
