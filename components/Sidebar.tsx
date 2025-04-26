@@ -15,7 +15,7 @@ export default function Sidebar() {
 
   return (
     <motion.aside
-      className='h-screen bg-grey-900 text-gray-300 pt-10 flex flex-col w-64 space-y-6 overflow-hidden pb-20 rounded-r-lg'
+      className='max-xl:hidden h-screen bg-grey-900 text-gray-300 pt-10 flex flex-col w-64 space-y-6 overflow-hidden pb-20 rounded-r-lg'
       animate={{ width: isMinimized ? 80 : 256 }}
     >
       <div className='flex items-center space-x-2 pl-8'>
